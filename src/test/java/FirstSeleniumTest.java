@@ -5,10 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.List;
-
-import static java.lang.Thread.*;
 import static org.junit.Assert.assertTrue;
 
 public class FirstSeleniumTest {
@@ -17,16 +14,12 @@ public class FirstSeleniumTest {
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        //Initialize webdriver
         driver = new ChromeDriver();
-        driver = new ChromeDriver();
-        driver.get("https//www.amazon.com");
+        driver.get("https://www.amazon.com");
     }
 
    @AfterClass
     public static void tearDown() {
-//        Thread.sleep(2000);!!!!!!!!!!!!!!!!!!!!!
-       //Close all tabs
         driver.quit();
     }
 
@@ -35,21 +28,23 @@ public class FirstSeleniumTest {
         WebElement searchInput = driver.findElement(By.id("twotabsearchtextbox"));
         searchInput.sendKeys("Kindle");
         searchInput.submit();
-        assertTrue("The url doesn't the expected term", driver.getCurrentUrl().contains("Kindle"));
+        assertTrue("The url doesn't contain the expected term", driver.getCurrentUrl().contains("Kindle"));
 
    }
    @Test
-    public void testBFilters(){
-        WebElement priceFrom = driver.findElement(By.id("low-price"));
+    public void testBFilters() {
+       WebElement priceFrom = driver.findElement(By.id("low-price"));
        priceFrom.sendKeys("150");
        priceFrom.submit();
 
        List<WebElement> prices = driver.findElements(By.className(".a-price-whole"));
-       for (WebElement price : prices){
+       for (WebElement price : prices) {
            assertTrue(Integer.parseInt(price.getText()) > 150);
        }
    }
 
-
 }
+
+
+
 
